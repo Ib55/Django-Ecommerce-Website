@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block body %}
+<div class="row my-5">
+{% for product in object_list %}
+<div class="col-lg-3 col-md-4 col-sm-12">
+ 
+    <div class="card shadow" style="width: 18rem;">
+      <a   href="{% url 'App_Shop:product_detail' pk=product.pk %}">
+        <img src="/media/{{product.mainimage}}" class="card-img-top" alt="...">
+      </a>
+        <div class="card-body">
+          <h5 class="card-title">{{product.name|range_filter}}</h5>  
+          
+          <p class="card-text">{{product.preview_text|slice:'50'}}</p>
+          <div>
+            <p class='fs-4 text-warning'><span class='fs-1 mx-2'>&#2547;</span>{{product.price}}</p>
+            <p class='fs-5'><span class='fs-1 mx-2'>&#2547;</span><strike>{{product.old_price}}</strike></p>
+          </div>
+          <a href="{% url 'App_Order:add' pk=product.pk %}" class="btn btn-primary">Add To Card</a>
+        </div>
+      </div>
+    
+</div>
+
+{% endfor %}
+</div>
+{% endblock body %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}{{title}}{% endblock title %}
+{% block body %}
+<div class="row">
+    {% for cart in carts %}
+    <div class="col-lg-12 mb-2">
+        <div class="card   w-100 h-100" >
+            <div class="row g-0">
+              <div class="col-md-1">
+                <img src="/media/{{cart.item.mainimage}}" class="img-fluid rounded-start" alt="...">
+              </div>
+              <div class="col-md-4">
+                <div class="card-body">
+                  <h5 class="card-title">{{cart.item.name}}</h5>
+                  
+                 
+                </div>
+                
+              </div>
+              <div class="col-md-2">
+                <div class="card-body">
+                  <h5 class="card-title">&#2547;{{cart.item.price}}</h5>
+                </div>
+                
+              </div>
+              <div class="col-md-2">
+                <div class="card-body">
+                  <h5 class="card-title"><a class="btn mx-1" href="{% url 'App_Order:increase' pk=cart.item.pk %}" ><i class="fa-solid fa-plus"></i></a>{{cart.quantity}}<a class="btn mx-1" href="{% url 'App_Order:decrease' pk=cart.item.pk %}" ><i class="fa-solid fa-minus"></i></a></h5>
+                  
+                 
+                </div>
+                
+              </div>
+              <div class="col-md-2">
+                <div class="card-body">
+                  <h5 class="card-title">{{cart.get_total}}</h5>
+                </div>
+             </div>
+             <div class="col-md-1">
+                <div class="card-body">
+                    <a href='{% url 'App_Order:remove' pk=cart.item.pk %}'><i class="fa-solid fa-trash"></i></a>
+                </div>
+             </div>
+            </div>
+          </div>
+    </div>
+    {% endfor %}
+    <div class='d-flex flex-row-reverse'>
+      <a  class="btn btn-success mx-2" href="{% url 'App_Payment:checkout' %}" role="button">Proceed To Checkout</a>
+      <a  class="btn btn-warning" href="{% url 'App_Shop:home' %}" role="button">Continue Shoping</a>
+  
+    </div>
+</div>
+{% endblock body %}
